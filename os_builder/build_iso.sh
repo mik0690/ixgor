@@ -64,6 +64,16 @@ umount "$ROOTFS/proc"
 umount "$ROOTFS/sys"
 umount "$ROOTFS/dev"
 
+# Create the /init script required by the Linux kernel to boot from initramfs
+cat << 'EOF' > "$ROOTFS/init"
+#!/bin/sh
+mount -t proc none /proc
+mount -t sysfs none /sys
+mount -t devtmpfs none /dev
+exec /sbin/init
+EOF
+chmod +x "$ROOTFS/init"
+
 echo "[*] Building Initramfs..."
 cd "$ROOTFS"
 find . -print0 | cpio --null -ov --format=newc | gzip -9 > "$ISODIR/boot/initramfs.gz"
@@ -80,7 +90,8 @@ cat << 'EOF' > "$ISODIR/boot/syslinux/syslinux.cfg"
 DEFAULT bootos
 LABEL bootos
   KERNEL /boot/vmlinuz
-  APPEND initrd=/boot/initramfs.gz root=/dev/ram0 rw quiet
+  INITRD /boot/initramfs.gz
+  APPEND quiet
 EOF
 
 echo "[*] Generating ISO..."
