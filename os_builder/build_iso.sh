@@ -94,5 +94,5 @@ xorriso -as mkisofs \
   "$ISODIR"
 
 echo "[+] Success! ISO generated at: /tmp/BootOS.iso"
-cp "/tmp/BootOS.iso" "$(pwd)/../../BootOS.iso"
-echo "[+] Copied to $(pwd)/../../BootOS.iso"
+cp "/tmp/BootOS.iso" "$(pwd)/../BootOS.iso"
+echo "[+] Copied to $(pwd)/../BootOS.iso"

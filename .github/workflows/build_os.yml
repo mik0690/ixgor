@@ -1,0 +1,28 @@
+name: Build BootOS ISO
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  build-iso:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Run ISO Builder
+      run: |
+        cd os_builder
+        chmod +x build_iso.sh
+        sudo ./build_iso.sh
+        
+    - name: Upload BootOS ISO Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: BootOS-ISO
+        path: BootOS.iso
+        if-no-files-found: error
