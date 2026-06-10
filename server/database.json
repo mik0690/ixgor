@@ -1,0 +1,65 @@
+{
+    "os_list": [
+        {
+            "id": "alpine_linux",
+            "name": "Alpine Linux",
+            "category": "recommended",
+            "min_ram_mb": 128,
+            "min_disk_mb": 500,
+            "editions": [
+                {
+                    "name": "Standard",
+                    "download_url": "https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86_64/alpine-standard-3.18.4-x86_64.iso",
+                    "incompatible_flags": []
+                },
+                {
+                    "name": "Extended",
+                    "download_url": "https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86_64/alpine-extended-3.18.4-x86_64.iso",
+                    "incompatible_flags": []
+                }
+            ]
+        },
+        {
+            "id": "linux_mint_xfce",
+            "name": "Linux Mint XFCE",
+            "category": "recommended",
+            "min_ram_mb": 2048,
+            "min_disk_mb": 20000,
+            "editions": [
+                {
+                    "name": "XFCE Edition",
+                    "download_url": "https://mirrors.edge.kernel.org/linuxmint/stable/21.2/linuxmint-21.2-xfce-64bit.iso",
+                    "incompatible_flags": ["32-bit"]
+                }
+            ]
+        },
+        {
+            "id": "ubuntu_desktop",
+            "name": "Ubuntu Desktop",
+            "category": "high_end",
+            "min_ram_mb": 4096,
+            "min_disk_mb": 25000,
+            "editions": [
+                {
+                    "name": "22.04 LTS",
+                    "download_url": "https://releases.ubuntu.com/jammy/ubuntu-22.04.3-desktop-amd64.iso",
+                    "incompatible_flags": ["32-bit"]
+                }
+            ]
+        },
+        {
+            "id": "fedora_workstation",
+            "name": "Fedora Workstation",
+            "category": "high_end",
+            "min_ram_mb": 4096,
+            "min_disk_mb": 20000,
+            "editions": [
+                {
+                    "name": "Fedora 39",
+                    "download_url": "https://download.fedoraproject.org/pub/fedora/linux/releases/39/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-39-1.5.iso",
+                    "incompatible_flags": ["32-bit", "arm"]
+                }
+            ]
+        }
+    ]
+}
