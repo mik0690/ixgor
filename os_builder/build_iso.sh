@@ -39,7 +39,8 @@ mount -o bind /dev "$ROOTFS/dev"
 cp /etc/resolv.conf "$ROOTFS/etc/resolv.conf"
 
 # Run commands inside the Alpine chroot
-chroot "$ROOTFS" /bin/sh -c "apk update && apk add python3 parted e2fsprogs bash nano util-linux linux-lts"
+# We use linux-virt instead of linux-lts to prevent the massive linux-firmware packages from inflating the ISO size
+chroot "$ROOTFS" /bin/sh -c "apk update && apk add python3 parted e2fsprogs bash nano util-linux linux-virt && rm -rf /var/cache/apk/*"
 
 # Copy our installer script
 cp ../installer/main.py "$ROOTFS/usr/local/bin/bootos_installer.py"
@@ -69,7 +70,7 @@ find . -print0 | cpio --null -ov --format=newc | gzip -9 > "$ISODIR/boot/initram
 
 echo "[*] Extracting Alpine Kernel..."
 # The kernel was already installed in the previous apk add step
-cp "$ROOTFS/boot/vmlinuz-lts" "$ISODIR/boot/vmlinuz"
+cp "$ROOTFS/boot/vmlinuz-virt" "$ISODIR/boot/vmlinuz"
 
 echo "[*] Configuring Syslinux Bootloader..."
 cp /usr/lib/ISOLINUX/isolinux.bin "$ISODIR/boot/syslinux/"
