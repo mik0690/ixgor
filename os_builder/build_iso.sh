@@ -38,7 +38,7 @@ mount -o bind /dev "$ROOTFS/dev"
 cp /etc/resolv.conf "$ROOTFS/etc/resolv.conf"
 
 # Run commands inside the Alpine chroot
-chroot "$ROOTFS" /bin/sh -c "apk update && apk add python3 parted e2fsprogs bash nano util-linux"
+chroot "$ROOTFS" /bin/sh -c "apk update && apk add python3 parted e2fsprogs bash nano util-linux linux-lts"
 
 # Copy our installer script
 cp ../installer/main.py "$ROOTFS/usr/local/bin/bootos_installer.py"
@@ -66,12 +66,9 @@ echo "[*] Building Initramfs..."
 cd "$ROOTFS"
 find . -print0 | cpio --null -ov --format=newc | gzip -9 > "$ISODIR/boot/initramfs.gz"
 
-echo "[*] Downloading Alpine Kernel..."
-# We can extract the kernel from the rootfs (Alpine provides linux-virt or linux-lts)
-mount -t proc none "$ROOTFS/proc"
-chroot "$ROOTFS" /bin/sh -c "apk add linux-lts"
+echo "[*] Extracting Alpine Kernel..."
+# The kernel was already installed in the previous apk add step
 cp "$ROOTFS/boot/vmlinuz-lts" "$ISODIR/boot/vmlinuz"
-umount "$ROOTFS/proc"
 
 echo "[*] Configuring Syslinux Bootloader..."
 cp /usr/lib/ISOLINUX/isolinux.bin "$ISODIR/boot/syslinux/"
