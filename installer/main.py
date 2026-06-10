@@ -9,7 +9,7 @@ import subprocess
 
 # GitHub RAW URL for the automated database
 # Replace YOUR-USERNAME with your actual GitHub username.
-API_URL = 'https://raw.githubusercontent.com/YOUR-USERNAME/ixgor/main/server/database.json'
+API_URL = 'https://raw.githubusercontent.com/mik0690/ixgor/main/server/database.json'
 
 def get_hardware_info():
     print("[*] Detecting hardware...")
