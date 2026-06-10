@@ -1,8 +1,9 @@
 #!/bin/bash
 # Run this script inside your Debian VM as root to generate the BootOS.iso
 # It uses Alpine Linux as an ultra-lightweight base.
-
 set -e
+
+ORIG_DIR="$(pwd)"
 
 if [ "$EUID" -ne 0 ]; then
   echo "Please run as root (e.g. sudo ./build_iso.sh)"
@@ -91,5 +92,5 @@ xorriso -as mkisofs \
   "$ISODIR"
 
 echo "[+] Success! ISO generated at: /tmp/BootOS.iso"
-cp "/tmp/BootOS.iso" "$(pwd)/../BootOS.iso"
-echo "[+] Copied to $(pwd)/../BootOS.iso"
+cp "/tmp/BootOS.iso" "$ORIG_DIR/../BootOS.iso"
+echo "[+] Copied to $ORIG_DIR/../BootOS.iso"
